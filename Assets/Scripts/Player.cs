@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     private bool jumpKeyWasPressed;
     private float horizontalInput;
     private Rigidbody rigidbodyComponent;
+    private int superJumpsRemaining;
 
 
     // Start is called before the first frame update
@@ -40,8 +41,23 @@ public class Player : MonoBehaviour
 
         if (jumpKeyWasPressed)
         {
-            rigidbodyComponent.AddForce(7 * Vector3.up, ForceMode.VelocityChange);
+            float jumpPower = 5f;
+            if (superJumpsRemaining > 0)
+            {
+                jumpPower *= 2;
+                superJumpsRemaining--;
+            }
+            rigidbodyComponent.AddForce(jumpPower * Vector3.up, ForceMode.VelocityChange);
             jumpKeyWasPressed = false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 9)
+        {
+            Destroy(other.gameObject);
+            superJumpsRemaining++;
         }
     }
 
