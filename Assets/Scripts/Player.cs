@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
 
         if (jumpKeyWasPressed)
         {
-            rigidbodyComponent.AddForce(10 * Vector3.up, ForceMode.VelocityChange);
+            rigidbodyComponent.AddForce(7 * Vector3.up, ForceMode.VelocityChange);
             jumpKeyWasPressed = false;
         }
     }
